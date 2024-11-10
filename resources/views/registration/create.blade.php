@@ -9,22 +9,21 @@
             <form action="{{route('registrations.store')}}" method="post" id="formId">
                 @csrf
                 <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputEmail1">Event Name</label>
-                            <input type="text" class="form-control" value="{{$event->event_name}}" readonly/>
+                    <div class="row mb-4 text-center">
+                        <div class="col-md-12">
+                            <h3 class="font-weight-bold text-info">{{ $event->event_name }}</h3>
+                            <p class="text-muted"><i class="fas fa-info-circle"></i> {{ $event->description }}</p>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputEmail1">Description</label>
-                            <input type="text" class="form-control" value="{{$event->description}}" readonly/>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            <h5><i class="fas fa-calendar-alt text-primary"></i> Event Date</h5>
+                            <p class="font-weight-bold">{{ dmYConverter($event->e_date) }}</p>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputEmail1">Event Date</label>
-                            <input type="date" class="form-control" value="{{$event->e_date}}" readonly/>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="exampleInputEmail1">Maximum No.of Attendees</label>
-                            <input type="number" class="form-control" value="{{$event->no_of_attendees}}" readonly/>
+                        <div class="col-md-4 text-center">
+                            <h5><i class="fas fa-users text-primary"></i> Maximum Attendees</h5>
+                            <p class="font-weight-bold">{{ $event->no_of_attendees }}</p>
                         </div>
                     </div>
                     <div class="row">

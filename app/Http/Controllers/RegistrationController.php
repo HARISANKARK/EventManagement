@@ -13,15 +13,23 @@ class RegistrationController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function ShowEvents($e_id)
+    {
+        $event = Event::find($e_id);
+        $registrations = Registration::where('event_id',$e_id)->get();
+        return view('registration.event_requests',compact('event','registrations'));
+    }
     public function index(Request $request)
     {
-        $filters = $request->only(['from','to']);
+        $filters = $request->only(['from','to','event_id']);
         $registrations = Registration::join('events','registrations.event_id','=','events.e_id')->filter($filters)->get();
 
-        $from = $request->from ?? date('Y-m-d');
-        $to = $request->to ?? date('Y-m-d');
+        $from = $request->from ?? null;
+        $to = $request->to ?? null;
 
-        return view('registration.index',compact('from','to','registrations'));
+        $events = Event::all();
+
+        return view('registration.index',compact('from','to','events','registrations'));
     }
 
     /**

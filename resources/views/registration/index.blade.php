@@ -29,6 +29,15 @@
                                     <label for="exampleInputEmail1">To</label>
                                     <input type="date" class="form-control" name="to" required />
                                 </div>
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Event</label>
+                                    <select  class="form-control select2bs4" name="event_id" id="event_id"  >
+                                        <option value="" hidden></option>
+                                        @foreach($events as $event)
+                                        <option value="{{$event->e_id}}" >{{$event->event_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group col-md-2 py-2">
                                     <br />
                                     <button type="submit" id="reload" class="btn btn-primary">Submit</button>
@@ -36,7 +45,7 @@
                             </div>
                         </form>
                         <table id="example1" class="table table-bordered table-striped">
-                            <caption style="caption-side:top"><b>Details from the period of {{ date('d-m-Y', strtotime($from))}} to {{ date('d-m-Y', strtotime($to))}}</b></caption>
+                            <caption style="caption-side:top"><b>@if($from && $to)Details from the period of {{ date('d-m-Y', strtotime($from))}} to {{ date('d-m-Y', strtotime($to))}}@endif</b></caption>
                             <thead>
                                 <tr>
                                     <th scope="col">Sl No</th>
@@ -54,7 +63,7 @@
                                     <td>{{$registration->event_name}}</td>
                                     <td>{{$registration->r_name}}</td>
                                     <td>{{$registration->r_email}}</td>
-                                    <td>{{$registration->r_date}}</td>
+                                    <td>{{dmYConverter($registration->r_date)}}</td>
                                     <td>{{$registration->r_phone_no}}</td>
                                 </tr>
                                 @endforeach

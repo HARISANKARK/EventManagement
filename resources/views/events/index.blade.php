@@ -36,7 +36,7 @@
                             </div>
                         </form>
                         <table id="example1" class="table table-bordered table-striped">
-                            <caption style="caption-side:top"><b>Details from the period of {{ date('d-m-Y', strtotime($from))}} to {{ date('d-m-Y', strtotime($to))}}</b></caption>
+                            <caption style="caption-side:top"><b>@if($from && $to)Details from the period of {{ dmYConverter($from)}} to {{ dmYConverter($to)}}@endif</b></caption>
                             <thead>
                                 <tr>
                                     <th scope="col">Sl No</th>
@@ -57,7 +57,7 @@
                                     <th scope="row">{{$i++}}</th>
                                     <td>{{$event->event_name}}</td>
                                     <td>{{$event->description}}</td>
-                                    <td>{{$event->e_date}}</td>
+                                    <td>{{dmYConverter($event->e_date)}}</td>
                                     <td>{{$event->no_of_attendees}}</td>
                                     <?php
                                         $user_count = 0;
@@ -69,13 +69,13 @@
                                     <td>
                                         @if(Auth::user()->role == 1){{-- admin --}}
                                             <a href="{{route('events.edit',$event->e_id)}}" class="btn"><i class="fa fa-pencil" onclick="return confirm('Do you want to update details ?')"></i></a>
-                                            <a href="{{route('registrations.index',$event->e_id)}}" class="btn btn-success">Requests</a>
+                                            <a href="{{route('registrations.event_requests',$event->e_id)}}" class="btn btn-success">Requests</a>
                                         @endif
                                         @if(Auth::user()->role == 2)
                                             @if($user_count < $event->no_of_attendees)
-                                                <a href="{{route('registrations.create',$event->e_id)}}" class="btn btn-primary" onclick="return confirm('Do you want to Apply This Event ?')">Apply</a>
+                                                <a href="{{route('registrations.create',$event->e_id)}}" class="btn btn-primary" onclick="return confirm('Do you want to Apply This Event ?')">Register</a>
                                             @else
-                                                <p style="color: red">Event Completed</p>
+                                                <p style="color: red">Event Has Reached its maximum number of attendees</p>
                                             @endif
                                         @endif
                                     </td>

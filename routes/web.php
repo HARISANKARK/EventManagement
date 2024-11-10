@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -25,5 +25,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/events',EventController::class);
+Route::get('/registrations/event_requests/{id?}', [RegistrationController::class, 'ShowEvents'])->name('registrations.event_requests');
 Route::get('/registrations/create/{id?}', [RegistrationController::class, 'create'])->name('registrations.create');
 Route::resource('/registrations',RegistrationController::class)->except('create');

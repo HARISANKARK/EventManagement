@@ -15,8 +15,8 @@ class EventController extends Controller
     {
         $filters = $request->only(['from','to']);
 
-        $from = $request->from ?? date('Y-m-d');
-        $to = $request->to ?? date('Y-m-d');
+        $from = $request->from ?? null;
+        $to = $request->to ?? null;
 
         $events = Event::filter($filters)->get();
 

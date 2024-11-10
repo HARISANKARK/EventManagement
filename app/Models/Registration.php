@@ -13,8 +13,8 @@ class Registration extends Model
 
     public function scopeFilter(Builder $query,array $filters) : Builder
     {
-        $from = $filters['from'] ?? date('Y-m-d');
-        $to = $filters['to'] ?? date('Y-m-d');
+        $from = $filters['from'] ?? null;
+        $to = $filters['to'] ?? null;
 
         return $query->when(
             $filters['event_id'] ?? false,
