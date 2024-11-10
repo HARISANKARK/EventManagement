@@ -32,6 +32,7 @@
                                                     <th scope="col">Description</th>
                                                     <th scope="col">Event Date</th>
                                                     <th scope="col">Maximum No.of Attendees</th>
+                                                    <th scope="col">#</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -43,6 +44,19 @@
                                                     <td>{{$event->description}}</td>
                                                     <td>{{$event->e_date}}</td>
                                                     <td>{{$event->no_of_attendees}}</td>
+                                                    <?php
+                                                        $user_count = 0;
+                                                        $user_count = App\Models\Registration::where('event_id',$event->e_id)->count();
+                                                    ?>
+                                                    <td>
+                                                        @if(Auth::user()->role == 2)
+                                                            @if($user_count < $event->no_of_attendees)
+                                                                <a href="{{route('registrations.create',$event->e_id)}}" class="btn btn-primary" onclick="return confirm('Do you want to Apply This Event ?')">Register</a>
+                                                            @else
+                                                                <p style="color: red">Event Has Reached its maximum number of attendees</p>
+                                                            @endif
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
