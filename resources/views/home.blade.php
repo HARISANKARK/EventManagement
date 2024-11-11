@@ -49,13 +49,18 @@
                                                     <?php
                                                         $user_count = 0;
                                                         $user_count = App\Models\Registration::where('event_id',$event->e_id)->count();
+                                                        $registration_status = App\Models\Registration::where('event_id',$event->e_id)->where('r_user_id',Auth::user()->id)->first();
                                                     ?>
                                                     @if(Auth::user()->role == 2){{-- user --}}
                                                     <td>
-                                                        @if($user_count < $event->no_of_attendees)
-                                                            <a href="{{route('registrations.create',$event->e_id)}}" class="btn btn-primary" onclick="return confirm('Do you want to Apply This Event ?')">Register</a>
+                                                        @if($registration_status == NULL)
+                                                            @if($user_count < $event->no_of_attendees)
+                                                                <a href="{{route('registrations.create',$event->e_id)}}" class="btn btn-primary" onclick="return confirm('Do you want to Apply This Event ?')">Register</a>
+                                                            @else
+                                                                <p style="color: red">Event Has Reached its maximum number of attendees</p>
+                                                            @endif
                                                         @else
-                                                            <p style="color: red">Event Has Reached its maximum number of attendees</p>
+                                                            <p>Registerd</p>
                                                         @endif
                                                     </td>
                                                     @endif
