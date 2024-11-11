@@ -45,7 +45,7 @@
                             </div>
                         </form>
                         <table id="example1" class="table table-bordered table-striped">
-                            <caption style="caption-side:top"><b>@if($from && $to)Details from the period of {{ date('d-m-Y', strtotime($from))}} to {{ date('d-m-Y', strtotime($to))}}@endif</b></caption>
+                            @if($from && $to)<caption style="caption-side:top"><b>Details from the period of {{ date('d-m-Y', strtotime($from))}} to {{ date('d-m-Y', strtotime($to))}}</b></caption>@endif
                             <thead>
                                 <tr>
                                     <th scope="col">Sl No</th>
