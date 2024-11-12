@@ -50,8 +50,8 @@ class RegistrationController extends Controller
             'event_id' => 'required|integer',
             'date' => 'required|date',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:registrations,r_email',
-            'phone_no' => 'required|regex:/^\+?[0-9]{10,15}$/|unique:registrations,r_phone_no',
+            'email' => 'required|email',
+            'phone_no' => 'required|regex:/^\+?[0-9]{10,15}$/',
         ]);
 
         try
